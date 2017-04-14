@@ -1,0 +1,25 @@
+{
+  "name": "harponica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UniversityHigh/harponica.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UniversityHigh/harponica/issues"
+  },
+  "homepage": "https://github.com/UniversityHigh/harponica#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "glob": "^7.1.1",
+    "merge": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0",
+    "pug": "^2.0.0-beta11"
+  }
+}
