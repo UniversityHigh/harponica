@@ -10,17 +10,20 @@ const merge = require("merge");
 class Server {
 	constructor(directory) {
 		this.directory = directory;
+		this.files.globals = path.join(this.directory, "_globals.json");
+		this.files.locals = path.join(this.directory, "_locals.json");
+		this.files.assets = path.join(this.directory, "assets");
 		this.server = express();
 
 		this.server.set("views", directory);
 		this.server.set("view engine", "pug");
-		this.server.use("/assets", express.static(path.join(this.directory, "/assets")));
+		this.server.use("/assets", express.static(this.files.assets));
 		
 		this.server.get("/", (req, res) => {
-			res.render("index", merge(require(path.join(this.directory, "/_globals.json")), require(path.join(this.directory, "/_locals.json")).index));
+			res.render("index", merge(require(this.files.globals), require(this.files.locals).index));
 		});
 		this.server.get("/:page", (req, res) => {
-			res.render(req.params.page, merge(require(path.join(this.directory, "/_globals.json")), require(path.join(this.directory, "/_locals.json"))[req.params.page]));
+			res.render(req.params.page, merge(require(this.files.globals), require(this.files.locals)[req.params.page]));
 		});
 	}
 
@@ -44,13 +47,11 @@ class Server {
 				let baseExt = base.split(".")[1];
 
 				let compiled = pug.compileFile(file);
-				fs.writeFile(path.join(outputDirectory, `/${baseName}.html`), compiled(merge(require(path.join(this.directory, "/_globals.json")), require(path.join(this.directory, "/_locals.json"))[baseName])), (err) => {
-					if(err) throw err;
-				});
+				fs.writeFile(path.join(outputDirectory, `${baseName}.html`), compiled(merge(require(this.files.globals), require(this.files.locals)[baseName])), (err) => { if(err) throw err; });
 			}
 		});
 
-		ncp(path.join(this.directory, "/assets"), path.join(outputDirectory, "/assets"), (err) => { if(err) throw err; });
+		ncp(this.files.assets, path.join(outputDirectory, "/assets"), (err) => { if(err) throw err; });
 		if(callback) callback();
 	}
 }
