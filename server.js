@@ -48,6 +48,7 @@ class Server {
 		this.server.close();
 		console.log(`Harponica server been stopped.`);
 		if(callback) callback();
+		process.exit(0);
 	}
 
 	compile(outputDirectory, callback) {
