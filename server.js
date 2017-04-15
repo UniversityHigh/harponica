@@ -9,7 +9,7 @@ const merge = require("merge");
 
 class Server {
 	constructor(directory) {
-		this.directory = path.isAbsolute(directory) ? directory : path.join(__dirname, directory);
+		this.directory = path.isAbsolute(directory) ? directory : path.join(process.cwd(), directory);
 		this.files = {};
 		this.files.globals = path.join(this.directory, "_globals.json");
 		this.files.locals = path.join(this.directory, "_locals.json");

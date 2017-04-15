@@ -32,11 +32,11 @@ if(args[0]) {
 			break;
 		case "compile":
 			if(subArgs.length === 0) {
-				if(!server) server = new Server(__dirname);
-				server.compile(path.join(__dirname, "compiled"));
+				if(!server) server = new Server(process.cwd());
+				server.compile(path.join(process.cwd(), "compiled"));
 			} else if(subArgs.length === 1) {
 				if(!server) server = new Server(subArgs[0]);
-				server.compile(path.join(__dirname, "compiled"));
+				server.compile(path.join(process.cwd(), "compiled"));
 			} else if(subArgs.length === 2) {
 				if(!server) server = new Server(subArgs[0]);
 				server.compile(subArgs[1]);
