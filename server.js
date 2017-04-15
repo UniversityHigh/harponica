@@ -1,11 +1,11 @@
-const fs = request("fs");
-const path = request("path");
-const express = request("express");
-const pug = request("pug");
-const glob = request("glob");
-const mkdirp = request("mkdirp");
-const ncp = request('ncp').ncp;
-const merge = request("merge");
+const fs = require("fs");
+const path = require("path");
+const express = require("express");
+const pug = require("pug");
+const glob = require("glob");
+const mkdirp = require("mkdirp");
+const ncp = require('ncp').ncp;
+const merge = require("merge");
 
 class Server {
 	constructor(directory) {
@@ -21,10 +21,10 @@ class Server {
 		this.server.use("/assets", express.static(this.files.assets));
 		
 		this.server.get("/", (request, response) => {
-			response.render("index", merge(request(this.files.globals), request(this.files.locals).index));
+			response.render("index", merge(require(this.files.globals), require(this.files.locals).index));
 		});
 		this.server.get("/:page", (request, response) => {
-			response.render(request.params.page, merge(request(this.files.globals), request(this.files.locals)[request.params.page]));
+			response.render(request.params.page, merge(require(this.files.globals), require(this.files.locals)[request.params.page]));
 		});
 	}
 
@@ -50,7 +50,7 @@ class Server {
 				let baseExt = base.split(".")[1];
 
 				let compiled = pug.compileFile(file);
-				fs.writeFile(path.join(outputDirectory, `${baseName}.html`), compiled(merge(request(this.files.globals), request(this.files.locals)[baseName])), (error) => { if(error) throw error; });
+				fs.writeFile(path.join(outputDirectory, `${baseName}.html`), compiled(merge(require(this.files.globals), require(this.files.locals)[baseName])), (error) => { if(error) throw error; });
 			}
 		});
 
