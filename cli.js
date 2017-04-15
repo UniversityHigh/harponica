@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const Server = require("./server.js");
 
 const fs = require("fs");
