@@ -1,6 +1,6 @@
 {
   "name": "@uhsse/harponica",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "HarpJS had issues that prevented it from being bundled with an Electron app. Namely, this was its node-sass dependency, which prevented it from being effectively used cross-platform. As a result, Harponica was created to serve the sole purpose of creating a small server capable of rendering and compiling .pug files.",
   "main": "server.js",
   "scripts": {
