@@ -12,15 +12,17 @@ if(args[0]) {
 		case "start":
 			if(server) console.error("Server instance already running.");
 
-			if(subArgs.length > 2 || subArgs.length < 1) {
-				console.error("Usage: harponica start [directory] [port]");
+			
+			if(subArgs.length === 0) {
+				server = new Server(process.cwd());
+				server.start(3000);
 			} else if(subArgs.length === 1) {
 				server = new Server(path.isAbsolute(subArgs[0]) ? subArgs[0] : path.join(process.cwd(), subArgs[0]));
 				server.start(3000);
 			} else if(subArgs.length === 2) {
 				server = new Server(path.isAbsolute(subArgs[0]) ? subArgs[0] : path.join(process.cwd(), subArgs[0]));
 				server.start(subArgs[1]);
-			}
+			} else if(subArgs.length > 2) console.error("Usage: harponica start [directory] [port]");
 			break;
 		case "stop":
 			if(!server) console.error("Server instance not running.");
