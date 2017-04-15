@@ -18,6 +18,8 @@ class Server {
 
 		this.server.set("views", directory);
 		this.server.set("view engine", "pug");
+		
+		try { this.server.use(favicon("/assets/img/favicon.ico")); } catch(error) {}
 		this.server.use("/assets", express.static(this.files.assets));
 		
 		this.server.get("/", (request, response) => {
