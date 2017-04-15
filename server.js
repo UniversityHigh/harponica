@@ -25,7 +25,7 @@ class Server {
 			response.render("index", merge(require(this.files.globals), require(this.files.locals).index));
 		});
 		this.server.get("/:page", (request, response) => {
-			if(!fs.existsSync(path.join(this.directory, request.param.page + ".pug"))) {
+			if(!fs.existsSync(path.join(process.cwd(), this.directory, request.param.page + ".pug"))) {
 				response.send("404");
 			} else {
 				response.render(request.params.page, merge(require(this.files.globals), require(this.files.locals)[request.params.page]));
