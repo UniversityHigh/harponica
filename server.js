@@ -59,4 +59,4 @@ class Server {
 	}
 }
 
-module.exports.Server = Server;
+module.exports = Server;

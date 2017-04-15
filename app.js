@@ -1,4 +1,5 @@
 const Server = require("./server.js").Server;
+module.exports = Server;
 
 const fs = require("fs");
 const args = process.argv.splice(process.execArgv.length + 2);
