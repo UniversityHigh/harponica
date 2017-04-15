@@ -46,7 +46,7 @@ if(args[0]) {
 			break;
 	}
 } else {
-	console.log("Usage");
+	console.log("Usage:");
 	console.log("harponica start [directory] [port]");
 	console.log("harponica stop");
 	console.log("harponica compile [sourceDirectory] [outputDirectory]");
