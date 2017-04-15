@@ -2,6 +2,7 @@
 const Server = require("./server.js");
 
 const fs = require("fs");
+const path = require("path");
 const args = process.argv.splice(process.execArgv.length + 2);
 
 if(args[0]) {
@@ -14,10 +15,10 @@ if(args[0]) {
 			if(subArgs.length > 2 || subArgs.length < 1) {
 				console.error("Usage: harponica start [directory] [port]");
 			} else if(subArgs.length === 1) {
-				server = new Server(subArgs[0]);
+				server = new Server(path.isAbsolute(subArgs[0]) ? subArgs[0] : path.join(process.cwd(), subArgs[0]));
 				server.start(3000);
 			} else if(subArgs.length === 2) {
-				server = new Server(subArgs[0]);
+				server = new Server(path.isAbsolute(subArgs[0]) ? subArgs[0] : path.join(process.cwd(), subArgs[0]));
 				server.start(subArgs[1]);
 			}
 			break;
@@ -35,11 +36,11 @@ if(args[0]) {
 				if(!server) server = new Server(process.cwd());
 				server.compile(path.join(process.cwd(), "compiled"));
 			} else if(subArgs.length === 1) {
-				if(!server) server = new Server(subArgs[0]);
+				if(!server) server = new Server(path.isAbsolute(subArgs[0]) ? subArgs[0] : path.join(process.cwd(), subArgs[0]));
 				server.compile(path.join(process.cwd(), "compiled"));
 			} else if(subArgs.length === 2) {
-				if(!server) server = new Server(subArgs[0]);
-				server.compile(subArgs[1]);
+				if(!server) server = new Server(path.isAbsolute(subArgs[0]) ? subArgs[0] : path.join(process.cwd(), subArgs[0]));
+				server.compile(path.isAbsolute(subArgs[1]) ? subArgs[1] : path.join(process.cwd(), subArgs[1]));
 			} else {
 				console.error("Usage: harponica compile [sourceDirectory] [outputDirectory]");
 			}
