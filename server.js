@@ -22,10 +22,15 @@ class Server {
 		this.server.use("/assets", express.static(this.files.assets));
 		
 		this.server.get("/", (request, response) => {
+			delete require.cache[require.resolve(this.files.locals)];
+			delete require.cache[require.resolve(this.files.globals)];
 			response.render("index", merge(require(this.files.globals), require(this.files.locals).index));
 		});
 		this.server.get("/:page", (request, response) => {
 			try {
+				delete require.cache[require.resolve(this.files.locals)];
+				delete require.cache[require.resolve(this.files.globals)];
+
 				response.render(request.params.page, merge(require(this.files.globals), require(this.files.locals)[request.params.page]));
 			} catch(error) {
 				response.send("404"); // Eventually make proper 404 response.
