@@ -41,8 +41,13 @@ if(args[0]) {
 				if(!server) server = new Server(subArgs[0]);
 				server.compile(subArgs[1]);
 			} else {
-				console.error("Usage: harponica compile <sourceDirectory> <outputDirectory>");
+				console.error("Usage: harponica compile [sourceDirectory] [outputDirectory]");
 			}
 			break;
 	}
+} else {
+	console.log("Usage");
+	console.log("harponica start [directory] [port]");
+	console.log("harponica stop");
+	console.log("harponica compile [sourceDirectory] [outputDirectory]");
 }
