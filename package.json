@@ -1,9 +1,14 @@
 {
-  "name": "harponica",
+  "name": "@uhsse/harponica",
   "version": "1.0.1",
-  "description": "",
-  "main": "app.js",
-  "scripts": {},
+  "description": "HarpJS had issues that prevented it from being bundled with an Electron app. Namely, this was its node-sass dependency, which prevented it from being effectively used cross-platform. As a result, Harponica was created to serve the sole purpose of creating a small server capable of rendering and compiling .pug files.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "bin": {
+    "harponica": "./cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UniversityHigh/harponica.git"
@@ -21,5 +26,6 @@
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "pug": "^2.0.0-beta11"
-  }
+  },
+  "devDependencies": {}
 }
