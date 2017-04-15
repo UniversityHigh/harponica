@@ -9,7 +9,7 @@ const merge = require("merge");
 
 class Server {
 	constructor(directory) {
-		this.directory = directory;
+		this.directory = path.isAbsolute(directory) ? directory : path.join(__dirname, directory);
 		this.files = {};
 		this.files.globals = path.join(this.directory, "_globals.json");
 		this.files.locals = path.join(this.directory, "_locals.json");
@@ -19,18 +19,16 @@ class Server {
 		this.server.set("views", directory);
 		this.server.set("view engine", "pug");
 
-		try { this.server.use(favicon("/assets/img/favicon.ico")); } catch(error) {}
 		this.server.use("/assets", express.static(this.files.assets));
 		
 		this.server.get("/", (request, response) => {
 			response.render("index", merge(require(this.files.globals), require(this.files.locals).index));
 		});
 		this.server.get("/:page", (request, response) => {
-			let locals = require(this.files.locals);
-			if(!locals[request.params.page]) {
-				return; // Eventually change to 404.
+			if(!fs.existsSync(path.join(this.directory, requests.param.page + ".pug"))) {
+				response.send("404");
 			} else {
-				response.render(request.params.page, merge(require(this.files.globals), locals[request.params.page]));
+				response.render(request.params.page, merge(require(this.files.globals), require(this.files.locals)[request.params.page]));
 			}
 		});
 	}
