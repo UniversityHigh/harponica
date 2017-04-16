@@ -31,7 +31,7 @@ class Server {
 				delete require.cache[require.resolve(this.files.locals)];
 				delete require.cache[require.resolve(this.files.globals)];
 			}
-			
+
 			try {
 				response.render(request.params.page, merge(require(this.files.globals), require(this.files.locals)[request.params.page]));
 			} catch(error) {
@@ -43,12 +43,6 @@ class Server {
 	start(port, callback) {
 		this.server = this.server.listen(port);
 		console.log(`Harponica server has started on port ${port}.`);
-		if(callback) callback();
-	}
-
-	stop(callback) {
-		this.server.close();
-		console.log(`Harponica server been stopped.`);
 		if(callback) callback();
 	}
 

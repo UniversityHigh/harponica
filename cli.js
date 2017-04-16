@@ -23,15 +23,6 @@ if(args[0]) {
 				server.start(subArgs[1]);
 			} else if(subArgs.length > 2) console.error("Usage: harponica start [directory] [port]");
 			break;
-		case "stop":
-			if(!server) console.error("Server instance not running.");
-
-			if(subArgs.length != 0) {
-				console.error("Usage: harponica stop");
-			} else {
-				server.stop();
-			}
-			break;
 		case "compile":
 			if(subArgs.length === 0) {
 				if(!server) server = new Server(process.cwd());
